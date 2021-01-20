@@ -89,7 +89,7 @@ app.post("/", (req, res) => {
    });
 
   var html_file = "iframePage"
-  var code = req.url + html_file
+  var code = req.protocol + '://' + req.get('host') + req.originalUrl + html_file
   res.render("index", {videos: videos, thumbnails: videos_thumbnails, code: code });
 
 });
@@ -117,7 +117,6 @@ app.post("/thumbnails", (req, res) => {
   	}
   }
 
-  // if (name){
   var thepath = '/public/videos/video' + videoNumber + '.mp4';
   pathToFile = path.join(__dirname, thepath);
   var newImName = "image" + videoNumber + ".jpg";
@@ -127,9 +126,6 @@ app.post("/thumbnails", (req, res) => {
   childProcess.exec(("ffmpeg -i " + pathToFile + " -ss " + time + " -r 1 -an -vframes 1 -f mjpeg " + pathToOutput), function(err) {
   res.render("index", {videos: videos, thumbnails: videos_thumbnails, code: null });
   });
-  // } else {
-  // 	res.send("No File was uploaded");
-  // }
 });
 
 let port = process.env.PORT;
