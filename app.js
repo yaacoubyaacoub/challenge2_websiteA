@@ -88,8 +88,8 @@ app.post("/", (req, res) => {
      if (err) throw err;
    });
 
-  var html_file = "/iframePage"
-  var code = __dirname + html_file
+  var html_file = "iframePage"
+  var code = req.url + html_file
   res.render("index", {videos: videos, thumbnails: videos_thumbnails, code: code });
 
 });
